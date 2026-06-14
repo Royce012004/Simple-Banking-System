@@ -2,14 +2,17 @@ package Banking;
 import java.sql.*;
 
 public class UserDAO {
-    public void createUser(String name, String pin) {
+    public void createUser(String name, String pin, String email, String address, String phoneNumber) {
         try (Connection conn = DBConnection.getConnection()) {
             String accountNumber = "ACC" + System.currentTimeMillis();
-            String sql =  "INSERT INTO users(name, pin, balance, account_number) VALUES (?, ?, 0, ?)";
+            String sql = "INSERT INTO users(name, pin, balance, account_number, email, address, phone_number) VALUES (?, ?, 0, ?, ?, ?, ?)";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, name);
             ps.setString(2, pin);
             ps.setString(3, accountNumber);
+            ps.setString(4, email);
+            ps.setString(5, address);
+            ps.setString(6, phoneNumber);
             ps.executeUpdate();
             System.out.println("Account Created Successfully!");
             System.out.println("Your Account Number: " + accountNumber);
@@ -30,7 +33,10 @@ public class UserDAO {
                         rs.getString("name"),
                         rs.getString("pin"),
                         rs.getDouble("balance"),
-                        rs.getString("account_number")
+                        rs.getString("account_number"),
+                        rs.getString("email"),
+                        rs.getString("address"),
+                        rs.getString("phone_number")
                 );
             }
         } catch (Exception e) {
@@ -103,9 +109,7 @@ public class UserDAO {
             System.out.println(e.getMessage());
         }
     }
-    public void transferMoney(int senderId,
-                              String receiverAccountNumber,
-                              double amount) {
+    public void transferMoney(int senderId, String receiverAccountNumber, double amount) {
 
         try (Connection conn = DBConnection.getConnection()) {
 

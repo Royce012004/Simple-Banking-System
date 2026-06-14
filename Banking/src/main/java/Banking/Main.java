@@ -12,12 +12,23 @@ public class Main {
             System.out.print("Choose: ");
             int choice = sc.nextInt();
             if (choice == 1) {
-                System.out.print("Name: ");
                 sc.nextLine();
+                System.out.print("Enter Name: ");
                 String name = sc.nextLine();
-                System.out.print("4-digit PIN: ");
-                String pin = sc.next();
-                dao.createUser(name, pin);
+
+                System.out.print("Enter PIN: ");
+                String pin = sc.nextLine();
+
+                System.out.print("Enter Email: ");
+                String email = sc.nextLine();
+
+                System.out.print("Enter Address: ");
+                String address = sc.nextLine();
+
+                System.out.print("Enter Phone Number: ");
+                String phoneNumber = sc.nextLine();
+
+                dao.createUser(name, pin, email, address, phoneNumber);
             } else if (choice == 2) {
                 System.out.print("Name: ");
                 sc.nextLine();
